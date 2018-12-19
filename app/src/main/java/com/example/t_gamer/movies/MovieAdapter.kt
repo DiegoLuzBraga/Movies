@@ -10,20 +10,19 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MovieAdapter(movie: List<MovieViewModel>) : RecyclerView.Adapter<MovieHolder>() {
 
-    private var movieList: List<MovieViewModel>? = null
-
-    fun LineAdapter(movies: List<MovieViewModel>) {
-        movieList = movies
-    }
+    private var movieList: List<MovieViewModel>? = movie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        return MovieHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_card, parent, false));
+        return MovieHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.movie_card, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.title.text =  movieList?.get(position)?.title
-        Picasso.get().load((movieList?.get(position)?.poster_path)).into(holder.movieView)
+        holder.title.text = movieList?.get(position)?.title
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + (movieList?.get(position)?.poster_path))
+            .into(holder.movieView)
     }
 
     override fun getItemCount(): Int {

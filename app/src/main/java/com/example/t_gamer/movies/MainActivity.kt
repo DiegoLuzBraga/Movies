@@ -17,15 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         val call = RetrofitConfig().tmdbAPI().getPopular()
 
-        call.enqueue(object : Callback, retrofit2.Callback<List<MovieViewModel>> {
-            override fun onFailure(call: Call<List<MovieViewModel>>, t: Throwable) {
-                Log.e("onFailure error", t?.message)
+        call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
+            override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
+                if(!t.message.isNullOrEmpty()) Log.e("onFailure error", t.message)
             }
 
-            override fun onResponse(call: Call<List<MovieViewModel>>, response: Response<List<MovieViewModel>>) {
+            override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response?.body()?.let {
-                    val movies: List<MovieViewModel> =  it
-                    setupRecycle(movies)
+                    val movies: MovieResultViewModel =  it
+                    setupRecycle(movies.results)
                 }
             }
         })

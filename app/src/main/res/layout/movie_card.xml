@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:orientation="vertical">
     <ImageView
             android:id="@+id/posterIMG"
-            android:layout_height="128dp"
-            style="@style/ImageViewStyle"
-            android:contentDescription="@string/app_name"/>
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
     <TextView
             android:id="@+id/titleTXT"
-            android:layout_width="128dp"
-            android:layout_height="24dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </LinearLayout>
