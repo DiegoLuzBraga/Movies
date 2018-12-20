@@ -1,10 +1,13 @@
 package com.example.t_gamer.movies
 
+
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.support.v7.widget.RecyclerView
 import com.squareup.picasso.Picasso
-
+import kotlinx.android.synthetic.main.movie_card.view.*
 
 class MovieAdapter(movie: List<MovieViewModel>) : RecyclerView.Adapter<MovieHolder>() {
 
@@ -21,9 +24,15 @@ class MovieAdapter(movie: List<MovieViewModel>) : RecyclerView.Adapter<MovieHold
         holder.title.text = movieList?.get(position)?.title
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + (movieList?.get(position)?.poster_path))
             .into(holder.movieView)
+        holder.movieView.movieCard.setOnClickListener{
+            val intent = Intent(MainActivity, MovieDetailsActivity::class.java)
+            Picasso.get().load(Picasso.get().load("https://image.tmdb.org/t/p/w500" + (movieList?.get(position)?.poster_path)).into(detailsIMG) )
+            startActivity(this@MainActivity, intent)
+        }
     }
 
     override fun getItemCount(): Int {
         return if (movieList != null) movieList?.size!! else 0
     }
+
 }

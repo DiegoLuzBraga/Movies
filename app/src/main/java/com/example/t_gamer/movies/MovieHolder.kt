@@ -8,5 +8,4 @@ import kotlinx.android.synthetic.main.movie_card.view.*
 class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var title: TextView = itemView.titleTXT
     var movieView: ImageView = itemView.posterIMG
-
 }

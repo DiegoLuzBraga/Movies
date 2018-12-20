@@ -19,19 +19,19 @@ class MainActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
-                if(!t.message.isNullOrEmpty()) Log.e("onFailure error", t.message)
+                if (!t.message.isNullOrEmpty()) Log.e("onFailure error", t.message)
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response?.body()?.let {
-                    val movies: MovieResultViewModel =  it
+                    val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
                 }
             }
         })
     }
 
-    private fun setupRecycle(movies: List<MovieViewModel>){
+    private fun setupRecycle(movies: List<MovieViewModel>) {
         itemsRCLV.adapter = MovieAdapter(movies)
         itemsRCLV.layoutManager = GridLayoutManager(this, 2)
     }
