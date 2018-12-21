@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/MainSRL"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
         style="@style/Theme.AppCompat.Light.DarkActionBar"
-        android:layout_height="match_parent"
         android:background="@color/colorGray"
         tools:context=".MainActivity">
     <android.support.v7.widget.RecyclerView
             android:id="@+id/itemsRCLV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -16,11 +16,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        callRetrofit()
+        MainSRL.setOnRefreshListener { callRetrofit() }
+
+    }
+
+    private fun callRetrofit() {
+        MainSRL.isRefreshing = true
         val call = RetrofitConfig().tmdbAPI().getPopular()
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) Log.e("onFailure error", t.message)
+                MainSRL.isRefreshing = false
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
@@ -28,8 +36,10 @@ class MainActivity : AppCompatActivity() {
                     val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
                 }
+                MainSRL.isRefreshing = false
             }
         })
+
     }
 
     private fun setupRecycle(movies: List<MovieViewModel>) {

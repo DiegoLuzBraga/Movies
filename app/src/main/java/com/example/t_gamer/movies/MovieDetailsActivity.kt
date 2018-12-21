@@ -15,7 +15,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_details)
         val overview: String = intent.getStringExtra("overview")
         val image: String = intent.getStringExtra("image")
-
         supportActionBar?.title = intent.getStringExtra("title")
 
         if (overview.isNotEmpty()) {
