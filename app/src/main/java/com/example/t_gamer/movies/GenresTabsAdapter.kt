@@ -4,21 +4,18 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class GenresTabsAdapter(fragmentManager: FragmentManager, moviesFragment: List<MoviesFragment>,genres: List<GenresViewModel>) :
+class GenresTabsAdapter(fragmentManager: FragmentManager, var genres: ArrayList<GenresDetailsViewModel>) :
     FragmentPagerAdapter(fragmentManager) {
 
-    private var genresFragment: List<MoviesFragment> = moviesFragment
-    private var genresList: List<GenresViewModel> = genres
-
-    private fun add(fragment: MoviesFragment){
-        genresFragment.plus(fragment)
-    }
+    private val moviesFragments: ArrayList<MoviesFragment> = arrayListOf()
 
     override fun getItem(position: Int): Fragment {
-        return genresFragment.get(position)
+        val movieFragment = MoviesFragment.newInstance(genres[position].id)
+        moviesFragments.add(movieFragment)
+        return movieFragment
     }
 
     override fun getCount(): Int {
-        return genresList.size
+        return genres.size
     }
 }

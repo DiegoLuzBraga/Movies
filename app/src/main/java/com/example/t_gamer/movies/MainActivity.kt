@@ -16,40 +16,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        callRetrofit()
-        MainSRL.setOnRefreshListener { callRetrofit() }
+
+        callGenres()
     }
 
-    private fun callRetrofit() {
-        MainSRL.isRefreshing = true
+    private fun callGenres(){
 
-        val call = RetrofitConfig().tmdbAPI().getPopular()
-
-        call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
-            override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
-                if (!t.message.isNullOrEmpty()) {
-                    Log.e("onFailure error", t.message)
-                }
-                MainSRL.isRefreshing = false
-            }
-
-            override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
-                itemsRCLV.visibility = View.VISIBLE
-                response.body()?.let {
-                    val movies: MovieResultViewModel = it
-                    setupRecycle(movies.results)
-                }
-                MainSRL.isRefreshing = false
-            }
-        })
     }
 
     private fun setupTabs(genres: List<GenresViewModel>){
 
-    }
-
-    private fun setupRecycle(movies: List<MovieViewModel>) {
-        itemsRCLV.adapter = MovieAdapter(movies)
-        itemsRCLV.layoutManager = GridLayoutManager(this, 2)
     }
 }
