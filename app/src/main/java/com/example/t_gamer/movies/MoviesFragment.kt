@@ -16,7 +16,11 @@ class MoviesFragment : Fragment() {
 
     companion object {
         fun newInstance(id: Int): MoviesFragment {
-            return MoviesFragment()
+            val movieFragment = MoviesFragment()
+            val args = Bundle()
+            args.putInt("id", id)
+            movieFragment.arguments = args
+            return movieFragment
         }
     }
 
@@ -31,8 +35,7 @@ class MoviesFragment : Fragment() {
 
     private fun callRetrofit() {
         MainSRL.isRefreshing = true
-
-        val call = RetrofitConfig().tmdbAPI().getPopular()
+        val call = RetrofitConfig().tmdbAPI().getMoviesByGenre(arguments!!.getInt("id"))
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
@@ -43,7 +46,6 @@ class MoviesFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
-                itemsRCLV.visibility = View.VISIBLE
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
@@ -54,7 +56,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupRecycle(movies: List<MovieViewModel>) {
-        itemsRCLV.adapter = MovieAdapter(movies)
-        itemsRCLV.layoutManager = GridLayoutManager(activity, 2)
+        itemsRV.adapter = MovieAdapter(movies)
+        itemsRV.layoutManager = GridLayoutManager(activity, 2)
     }
 }

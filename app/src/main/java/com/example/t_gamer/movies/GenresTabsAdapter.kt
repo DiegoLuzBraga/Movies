@@ -15,7 +15,7 @@ class GenresTabsAdapter(fragmentManager: FragmentManager, var genres: ArrayList<
         return movieFragment
     }
 
-    override fun getCount(): Int {
-        return genres.size
-    }
+    override fun getPageTitle(position: Int): CharSequence? = genres[position].name
+
+    override fun getCount(): Int = genres.size
 }

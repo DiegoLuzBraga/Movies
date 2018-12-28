@@ -20,11 +20,29 @@ class MainActivity : AppCompatActivity() {
         callGenres()
     }
 
-    private fun callGenres(){
+    private fun callGenres() {
+        val call = RetrofitConfig().tmdbAPI().getGenres()
 
+        call.enqueue(object : Callback, retrofit2.Callback<GenresViewModel> {
+            override fun onResponse(call: Call<GenresViewModel>, response: Response<GenresViewModel>) {
+                response.body()?.let {
+                    val genres: GenresViewModel = it
+                    setupTabs(genres.genres)
+                }
+                MainSRL.isRefreshing = false
+            }
+
+            override fun onFailure(call: Call<GenresViewModel>, t: Throwable) {
+                if (!t.message.isNullOrEmpty()) {
+                    Log.e("onFailure error", t.message)
+                }
+                MainSRL.isRefreshing = false
+            }
+        })
     }
 
-    private fun setupTabs(genres: List<GenresViewModel>){
-
+    private fun setupTabs(genres: ArrayList<GenresDetailsViewModel>) {
+        fragmentsVP.adapter = GenresTabsAdapter(supportFragmentManager, genres)
+        genreTAB.setupWithViewPager(fragmentsVP)
     }
 }

@@ -11,13 +11,13 @@
             android:id="@+id/genreTAB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:tabMode="scrollable"
             app:tabGravity="fill"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <android.support.v4.view.ViewPager
-            android:id="@+id/fragmentsVPG"
+            android:id="@+id/fragmentsVP"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

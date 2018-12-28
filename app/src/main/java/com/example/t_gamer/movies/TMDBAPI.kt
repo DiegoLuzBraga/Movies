@@ -12,7 +12,7 @@ interface TMDBAPI {
     fun getGenres(): Call<GenresViewModel>
 
     @GET("discover/movie?api_key=548202cec0f96e480f6e8aa312dd3d3b&language=pt-BR&")
-    fun moviesByGenre(
+    fun getMoviesByGenre(
         @Query("with_genres") id: Int
     ): Call<MovieResultViewModel>
 }

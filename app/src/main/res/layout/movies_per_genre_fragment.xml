@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/MainSRL"
         style="@style/Theme.AppCompat.Light.DarkActionBar"
         android:background="@color/colorGray"
         tools:context=".MainActivity">
 
+<android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/MainSRL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/itemsRCLV"
+            android:id="@+id/itemsRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    <!--<LinearLayout
-            android:id="@+id/errorLINEAR"
+</android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--
+    <LinearLayout
+            android:id="@+id/errorLL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:visibility="invisible">
+            android:visibility="gone">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,4 +37,4 @@
                 android:text="Reload"
                 android:layout_marginTop="24dp"/>
     </LinearLayout> -->
-</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
