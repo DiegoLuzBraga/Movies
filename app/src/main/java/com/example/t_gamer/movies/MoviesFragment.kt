@@ -14,6 +14,8 @@ import javax.security.auth.callback.Callback
 
 class MoviesFragment : Fragment() {
 
+    private lateinit var moviesArray: ArrayList<MovieViewModel>
+
     companion object {
         fun newInstance(id: Int): MoviesFragment {
             val movieFragment = MoviesFragment()
@@ -24,7 +26,7 @@ class MoviesFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.movies_per_genre_fragment, container, false)
     }
 
@@ -48,6 +50,7 @@ class MoviesFragment : Fragment() {
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
+                    moviesArray.plus(movies.results)
                     setupRecycle(movies.results)
                 }
                 MainSRL.isRefreshing = false
