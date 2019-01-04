@@ -14,7 +14,7 @@ import javax.security.auth.callback.Callback
 
 class MoviesFragment : Fragment() {
 
-    private lateinit var moviesArray: ArrayList<MovieViewModel>
+    // private lateinit var moviesArray: ArrayList<MovieViewModel>
 
     companion object {
         fun newInstance(id: Int): MoviesFragment {
@@ -36,7 +36,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun callRetrofit() {
-        MainSRL.isRefreshing = true
+        MainSRL?.isRefreshing = true
         val call = RetrofitConfig().tmdbAPI().getMoviesByGenre(arguments!!.getInt("id"))
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
@@ -44,22 +44,22 @@ class MoviesFragment : Fragment() {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
                 }
-                MainSRL.isRefreshing = false
+                MainSRL?.isRefreshing = false
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
-                    moviesArray.plus(movies.results)
+                    // moviesArray.plus(movies.results)
                     setupRecycle(movies.results)
                 }
-                MainSRL.isRefreshing = false
+                MainSRL?.isRefreshing = false
             }
         })
     }
 
     private fun setupRecycle(movies: List<MovieViewModel>) {
-        itemsRV.adapter = MovieAdapter(movies)
-        itemsRV.layoutManager = GridLayoutManager(activity, 2)
+        itemsRV?.adapter = MovieAdapter(movies)
+        itemsRV?.layoutManager = GridLayoutManager(activity, 2)
     }
 }

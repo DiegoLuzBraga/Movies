@@ -19,10 +19,10 @@ class MovieAdapter(movie: List<MovieViewModel>) : RecyclerView.Adapter<MovieHold
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.title.text = movieList?.get(position)?.title
+        holder.title?.text = movieList?.get(position)?.title
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + (movieList?.get(position)?.poster_path))
             .into(holder.movieView)
-        holder.movieCard.setOnClickListener{
+        holder.movieCard?.setOnClickListener{
             val intent = Intent(it.context, MovieDetailsActivity::class.java)
             intent.putExtra("title", movieList?.get(position)?.title)
             intent.putExtra("image", "https://image.tmdb.org/t/p/w500" + (movieList?.get(position)?.poster_path))

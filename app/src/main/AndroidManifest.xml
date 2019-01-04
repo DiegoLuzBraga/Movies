@@ -22,7 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MovieDetailsActivity"
-                  android:parentActivityName=".MainActivity"
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name=".SearchableActivity"

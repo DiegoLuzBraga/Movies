@@ -3,7 +3,6 @@ package com.example.t_gamer.movies
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
-import menu.*
 
 class SearchableActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
