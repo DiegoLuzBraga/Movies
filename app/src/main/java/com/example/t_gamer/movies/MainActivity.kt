@@ -3,7 +3,9 @@ package com.example.t_gamer.movies
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.SearchView
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
@@ -18,6 +20,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         callGenres()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        val searchItem = menu?.findItem(R.id.searchBTN)
+        val searchView = searchItem?.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // TODO Chamada da API de pesquisa - TODO do TODO
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if ((newText.isNullOrEmpty()) && newText!!.length > 2) {
+                    // TODO search movie e avaliar
+                    return true
+                }
+                return false
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun callGenres() {

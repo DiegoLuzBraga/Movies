@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
         style="@style/Theme.AppCompat.Light.DarkActionBar"
         android:background="@color/colorGray"
-        android:orientation="vertical"
         tools:context=".MainActivity">
 
     <android.support.design.widget.TabLayout
@@ -19,6 +18,16 @@
     <android.support.v4.view.ViewPager
             android:id="@+id/fragmentsVP"
             android:layout_width="match_parent"
+            android:layout_below="@+id/genreTAB"
             android:layout_height="match_parent" />
 
-</LinearLayout>
+    <LinearLayout
+            android:id="@+id/searchRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:visibility="gone"
+            android:orientation="vertical">
+    </LinearLayout>
+
+</RelativeLayout>

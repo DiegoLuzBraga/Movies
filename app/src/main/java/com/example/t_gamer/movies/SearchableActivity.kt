@@ -10,7 +10,7 @@ class SearchableActivity : AppCompatActivity() {
         val searchItem = menu?.findItem(R.id.searchBTN)
         var searchView = searchItem?.actionView as SearchView
 
-        searchView.setOnQueryTextListener( object : android.widget.SearchView.OnQueryTextListener,
+        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -20,9 +20,7 @@ class SearchableActivity : AppCompatActivity() {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-        }
-
-        )
+        })
         return super.onCreateOptionsMenu(menu)
     }
 }
