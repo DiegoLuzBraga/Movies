@@ -1,4 +1,4 @@
-package com.example.t_gamer.movies
+package com.example.t_gamer.movies.ViewModel
 
 class GenresDetailsViewModel(
     val id: Int,

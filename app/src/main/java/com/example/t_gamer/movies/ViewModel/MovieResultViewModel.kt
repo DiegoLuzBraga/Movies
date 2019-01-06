@@ -1,4 +1,4 @@
-package com.example.t_gamer.movies
+package com.example.t_gamer.movies.ViewModel
 
 data class MovieResultViewModel (
     val page: Int,

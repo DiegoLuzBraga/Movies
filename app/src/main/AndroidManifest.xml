@@ -24,9 +24,6 @@
         <activity android:name=".MovieDetailsActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SearchableActivity"
-                  android:screenOrientation="portrait">
-        </activity>
     </application>
 
 </manifest>

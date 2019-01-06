@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="description">Descrição</string>
+    <string name="searchMovie">Nome do filme</string>
     <string name="descriptionUnavailable">Descrição indisponível</string>
 </resources>

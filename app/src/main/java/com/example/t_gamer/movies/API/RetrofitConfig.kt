@@ -1,4 +1,4 @@
-package com.example.t_gamer.movies
+package com.example.t_gamer.movies.API
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

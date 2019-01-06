@@ -1,4 +1,4 @@
-package com.example.t_gamer.movies
+package com.example.t_gamer.movies.Fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.t_gamer.movies.Adapter.MovieAdapter
+import com.example.t_gamer.movies.R
+import com.example.t_gamer.movies.API.RetrofitConfig
+import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
+import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
 import retrofit2.Call
 import retrofit2.Response
@@ -34,7 +39,6 @@ class MoviesFragment : Fragment() {
     }
 
     private fun callRetrofit() {
-        MainSRL?.isRefreshing = true
         val call = RetrofitConfig().tmdbAPI().getMoviesByGenre(arguments!!.getInt("id"))
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
@@ -42,7 +46,6 @@ class MoviesFragment : Fragment() {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
                 }
-                MainSRL?.isRefreshing = false
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
@@ -50,7 +53,6 @@ class MoviesFragment : Fragment() {
                     val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
                 }
-                MainSRL?.isRefreshing = false
             }
         })
     }
