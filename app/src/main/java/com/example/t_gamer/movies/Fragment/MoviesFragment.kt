@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.example.t_gamer.movies.Adapter.MovieAdapter
 import com.example.t_gamer.movies.R
 import com.example.t_gamer.movies.API.RetrofitConfig
+import com.example.t_gamer.movies.DB.AppDatabase
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
@@ -35,22 +36,28 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        AppDatabase.getInstance(context!!)?.moviesDAO()
         callRetrofit()
     }
 
     private fun callRetrofit() {
         val call = RetrofitConfig().tmdbAPI().getMoviesByGenre(arguments!!.getInt("id"))
+        val localData = AppDatabase.getInstance(context!!)?.moviesDAO()!!.getMoviesByGenres(arguments!!.getInt("id"))
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
+                    localData.let {
+                        setupRecycle(it)
+                    }
                 }
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
+                    AppDatabase.getInstance(context!!)?.moviesDAO()!!.insertMovie(movies.results)
                     setupRecycle(movies.results)
                 }
             }
@@ -58,7 +65,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupRecycle(movies: List<MovieViewModel>) {
-        itemsRV?.adapter = MovieAdapter(movies)
+        itemsRV?.adapter = MovieAdapter(movies, context!!)
         itemsRV?.layoutManager = GridLayoutManager(activity, 2)
     }
 }

@@ -11,7 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    <!--
     <LinearLayout
             android:id="@+id/errorLL"
             android:layout_width="match_parent"
@@ -19,15 +18,19 @@
             android:orientation="vertical"
             android:gravity="center"
             android:visibility="gone">
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/errorTXT"/>
+
         <Button
                 android:id="@+id/reloadBTN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reload"
                 android:layout_marginTop="24dp"/>
-    </LinearLayout> -->
+
+    </LinearLayout>
+
 </LinearLayout>

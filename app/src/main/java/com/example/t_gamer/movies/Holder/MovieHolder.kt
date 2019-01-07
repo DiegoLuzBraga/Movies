@@ -1,4 +1,4 @@
-package com.example.t_gamer.movies
+package com.example.t_gamer.movies.Holder
 import android.support.v7.widget.CardView
 import android.widget.TextView
 import android.support.v7.widget.RecyclerView

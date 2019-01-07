@@ -3,7 +3,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
         style="@style/Theme.AppCompat.Light.DarkActionBar"
-        android:id="@+id/mainRL"
         android:background="@color/colorGray"
         tools:context=".MainActivity">
 
