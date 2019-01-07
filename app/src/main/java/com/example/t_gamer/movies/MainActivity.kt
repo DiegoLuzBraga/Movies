@@ -33,13 +33,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        AppDatabase.getInstance(this@MainActivity)!!.moviesDAO()
         callGenres()
     }
 
     private fun callGenres() {
-
-        val localData = AppDatabase.getInstance(this)?.moviesDAO()!!
+        loadingPB.visibility = View.VISIBLE
+        val localData = AppDatabase.instance.moviesDAO()
 
         call.getGenres().enqueue(object : Callback, retrofit2.Callback<GenresViewModel> {
             override fun onResponse(call: Call<GenresViewModel>, response: Response<GenresViewModel>) {
@@ -47,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                     val genres: GenresViewModel = it
                     localData.insertGenres(genres.genres)
                     setupTabs(genres.genres)
+                    loadingPB.visibility = View.GONE
                 }
             }
 
@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
                     setupTabs(localData.getGenres())
+                    loadingPB.visibility = View.GONE
                 }
             }
         })
@@ -65,8 +66,6 @@ class MainActivity : AppCompatActivity() {
         val searchView = menu?.findItem(R.id.searchBTN)?.actionView as SearchView
         searchView.queryHint = getString(R.string.searchMovie)
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-        val searchFragment = SearchFragment()
 
         searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
@@ -84,8 +83,8 @@ class MainActivity : AppCompatActivity() {
 
                     searchLL.visibility = View.VISIBLE
                     searchRV.visibility = View.VISIBLE
-                    searchFragment.onSearchStart()
-                    searchFragment.onSearchResult(newText)
+                    onSearchStart()
+                    onSearchResult(newText)
 
                     return true
                 }
@@ -106,5 +105,40 @@ class MainActivity : AppCompatActivity() {
     private fun setupTabs(genres: ArrayList<GenresDetailsViewModel>) {
         fragmentsVP.adapter = GenresTabsAdapter(supportFragmentManager, genres)
         genreTAB.setupWithViewPager(fragmentsVP)
+    }
+
+    fun onSearchResult(newText: String) {
+        val call = RetrofitConfig().tmdbAPI()
+        call.getMovieByTitle(newText).enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
+            override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
+                if (!t.message.isNullOrEmpty()) {
+                    onSearchError("SearchView - onFailure error: " + t.message)
+                }
+            }
+
+            override fun onResponse(
+                call: Call<MovieResultViewModel>,
+                response: Response<MovieResultViewModel>
+            ) {
+                response.body()?.let {
+                    val movies: MovieResultViewModel = it
+                    setupRecycle(movies.results)
+                }
+            }
+
+        })
+    }
+
+    fun onSearchError(errorMessage: String) {
+        Log.e("onSearchError: ", errorMessage)
+    }
+
+    fun onSearchStart(){
+
+    }
+
+    private fun setupRecycle(movies: List<MovieViewModel>) {
+        searchRV?.layoutManager = GridLayoutManager(this, 2)
+        searchRV?.adapter = MovieAdapter(movies, this)
     }
 }

@@ -28,11 +28,18 @@
             android:background="@color/colorWhite"
             android:visibility="gone"
             android:orientation="vertical">
+
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/searchRV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
     </LinearLayout>
+
+    <ProgressBar
+            android:id="@+id/loadingPB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
 </RelativeLayout>

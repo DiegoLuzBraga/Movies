@@ -10,22 +10,18 @@ import com.example.t_gamer.movies.ViewModel.MovieViewModel
 @Database(entities = [MovieViewModel::class, GenresDetailsViewModel::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun moviesDAO(): DAO
-
     companion object {
 
-        private var INSTANCE: AppDatabase? = null
+        lateinit var instance: AppDatabase
+            private set
 
-        fun getInstance(context: Context): AppDatabase? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java, "movies.db"
-                    ).build()
-                }
-            }
-            return INSTANCE
+        fun initialize(context: Context) {
+            instance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "movies.db").apply {
+                allowMainThreadQueries()
+            }.build()
         }
     }
+
+    abstract fun moviesDAO(): DAO
+
 }

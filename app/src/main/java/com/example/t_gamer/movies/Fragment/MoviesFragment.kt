@@ -36,28 +36,26 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AppDatabase.getInstance(context!!)?.moviesDAO()
+
         callRetrofit()
     }
 
     private fun callRetrofit() {
         val call = RetrofitConfig().tmdbAPI().getMoviesByGenre(arguments!!.getInt("id"))
-        val localData = AppDatabase.getInstance(context!!)?.moviesDAO()!!.getMoviesByGenres(arguments!!.getInt("id"))
+        val localData = AppDatabase.INSTANCE.moviesDAO().getMoviesByGenres(arguments!!.getInt("id"))
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
-                    localData.let {
-                        setupRecycle(it)
-                    }
+                    setupRecycle(localData)
                 }
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
-                    AppDatabase.getInstance(context!!)?.moviesDAO()!!.insertMovie(movies.results)
+                     AppDatabase.INSTANCE.moviesDAO().insertMovie(movies.results)
                     setupRecycle(movies.results)
                 }
             }
