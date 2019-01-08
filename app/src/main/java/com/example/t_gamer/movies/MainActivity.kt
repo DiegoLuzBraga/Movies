@@ -98,11 +98,10 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
-
         return true
     }
 
-    private fun setupTabs(genres: ArrayList<GenresDetailsViewModel>) {
+    private fun setupTabs(genres: List<GenresDetailsViewModel>) {
         fragmentsVP.adapter = GenresTabsAdapter(supportFragmentManager, genres)
         genreTAB.setupWithViewPager(fragmentsVP)
     }

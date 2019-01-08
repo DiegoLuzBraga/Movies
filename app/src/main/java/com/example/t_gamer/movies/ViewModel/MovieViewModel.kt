@@ -2,6 +2,7 @@ package com.example.t_gamer.movies.ViewModel
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "Movies")
@@ -9,7 +10,7 @@ data class MovieViewModel(
 
     @PrimaryKey
     @ColumnInfo(name = "movie_id")
-    var id: Number,
+    var id: Int,
 
     @ColumnInfo(name = "title")
     var title: String,
@@ -21,6 +22,6 @@ data class MovieViewModel(
     var poster_path: String,
 
     @ColumnInfo(name = "genre_ids")
-    var genre_ids: ArrayList<String>
+    var genre_ids: List<Int>
 
 )

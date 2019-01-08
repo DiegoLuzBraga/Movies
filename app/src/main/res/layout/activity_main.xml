@@ -12,6 +12,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:tabMode="scrollable"
+            android:elevation="8dp"
             app:tabGravity="fill"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

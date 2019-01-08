@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import com.example.t_gamer.movies.Fragment.MoviesFragment
 import com.example.t_gamer.movies.ViewModel.GenresDetailsViewModel
 
-class GenresTabsAdapter(fragmentManager: FragmentManager, var genres: ArrayList<GenresDetailsViewModel>) :
+class GenresTabsAdapter(fragmentManager: FragmentManager, var genres: List<GenresDetailsViewModel>) :
     FragmentPagerAdapter(fragmentManager) {
 
     private val moviesFragments: ArrayList<MoviesFragment> = arrayListOf()

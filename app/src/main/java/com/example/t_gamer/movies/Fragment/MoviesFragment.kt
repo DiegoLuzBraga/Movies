@@ -42,7 +42,7 @@ class MoviesFragment : Fragment() {
 
     private fun callRetrofit() {
         val call = RetrofitConfig().tmdbAPI().getMoviesByGenre(arguments!!.getInt("id"))
-        val localData = AppDatabase.INSTANCE.moviesDAO().getMoviesByGenres(arguments!!.getInt("id"))
+        val localData = AppDatabase.instance.moviesDAO().getMoviesByGenres(listOf(arguments!!.getInt("id")))
 
         call.enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
@@ -55,7 +55,7 @@ class MoviesFragment : Fragment() {
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
-                     AppDatabase.INSTANCE.moviesDAO().insertMovie(movies.results)
+                     AppDatabase.instance.moviesDAO().insertMovie(movies.results)
                     setupRecycle(movies.results)
                 }
             }

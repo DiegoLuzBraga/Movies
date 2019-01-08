@@ -11,15 +11,18 @@ import com.example.t_gamer.movies.ViewModel.MovieViewModel
 interface DAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGenres(genres: ArrayList<GenresDetailsViewModel>)
+    fun insertGenres(genres: List<GenresDetailsViewModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movies: ArrayList<MovieViewModel>)
+    fun insertMovie(movies: List<MovieViewModel>)
 
     @Query("Select * from Genres")
-    fun getGenres() : ArrayList<GenresDetailsViewModel>
+    fun getGenres() : List<GenresDetailsViewModel>
 
     @Query("Select * from Movies Where genre_ids = :genre_id")
-    fun getMoviesByGenres(genre_id: Int) : ArrayList<MovieViewModel>
+    fun getMoviesByGenres(genre_id: List<Int>) : List<MovieViewModel>
+
+    @Query("SELECT * FROM Movies")
+    fun getAllMovies(): List<MovieViewModel>
 
 }
