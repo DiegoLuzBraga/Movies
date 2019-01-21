@@ -12,8 +12,7 @@ data class MovieViewModel(
     @ColumnInfo(name = "movie_id")
     var id: Int,
 
-    @ColumnInfo(name = "genre_ids")
-    var genre_ids: Int,
+    var genre_ids: List<Int>,
 
     @ColumnInfo(name = "title")
     var title: String,
@@ -22,6 +21,6 @@ data class MovieViewModel(
     var overview: String,
 
     @ColumnInfo(name = "poster_path")
-    var poster_path: String
+    var poster_path: String?
 
 )

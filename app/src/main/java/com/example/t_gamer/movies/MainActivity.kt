@@ -83,12 +83,13 @@ class MainActivity : AppCompatActivity() {
 
                     searchLL.visibility = View.VISIBLE
                     searchRV.visibility = View.VISIBLE
+
                     onSearchStart()
+
                     onSearchResult(newText)
 
                     return true
-                }
-                else {
+                } else {
                     searchLL.visibility = View.GONE
                     searchRV.visibility = View.GONE
                     itemsRV.visibility = View.VISIBLE
@@ -112,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) {
                     onSearchError("SearchView - onFailure error: " + t.message)
+                    loadingPB.visibility = View.GONE
                 }
             }
 
@@ -122,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
+                    loadingPB.visibility = View.GONE
                 }
             }
 
@@ -132,8 +135,8 @@ class MainActivity : AppCompatActivity() {
         Log.e("onSearchError: ", errorMessage)
     }
 
-    fun onSearchStart(){
-
+    fun onSearchStart() {
+        loadingPB.visibility = View.VISIBLE
     }
 
     private fun setupRecycle(movies: List<MovieViewModel>) {

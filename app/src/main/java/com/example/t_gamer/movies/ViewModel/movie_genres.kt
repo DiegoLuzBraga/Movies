@@ -21,13 +21,12 @@ import android.arch.persistence.room.PrimaryKey
     )]
 )
 data class movie_genres(
-
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int,
 
     @ColumnInfo(name = "movieId")
-    var movieId: Int,
+    var movieId: Int? = null,
 
     @ColumnInfo(name = "genreId")
     var genreId: Int
