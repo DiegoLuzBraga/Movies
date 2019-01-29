@@ -2,7 +2,6 @@ package com.example.t_gamer.movies
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.res.Resources
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -14,7 +13,6 @@ import com.example.t_gamer.movies.API.RetrofitConfig
 import com.example.t_gamer.movies.Adapter.GenresTabsAdapter
 import com.example.t_gamer.movies.Adapter.MovieAdapter
 import com.example.t_gamer.movies.DB.AppDatabase
-import com.example.t_gamer.movies.Fragment.SearchFragment
 import com.example.t_gamer.movies.ViewModel.GenresDetailsViewModel
 import com.example.t_gamer.movies.ViewModel.GenresViewModel
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
@@ -34,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         callGenres()
+
+        mainReloadBTN.setOnClickListener {
+            reloadGenres()
+        }
     }
 
     private fun callGenres() {
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
                     setupTabs(localData.getGenres())
+                    onSearchError(getString(R.string.callGenresError))
                     loadingPB.visibility = View.GONE
                 }
             }
@@ -75,10 +78,11 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrEmpty() && newText!!.length > 2) {
 
-                    if (fragmentsVP.visibility == View.VISIBLE) {
+                    if (moviesVP.visibility == View.VISIBLE) {
                         itemsRV.visibility = View.GONE
-                        fragmentsVP.visibility = View.GONE
+                        moviesVP.visibility = View.GONE
                         genreTAB.visibility = View.GONE
+                        mainErrorLL.visibility = View.GONE
                     }
 
                     searchLL.visibility = View.VISIBLE
@@ -93,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                     searchLL.visibility = View.GONE
                     searchRV.visibility = View.GONE
                     itemsRV.visibility = View.VISIBLE
-                    fragmentsVP.visibility = View.VISIBLE
+                    moviesVP.visibility = View.VISIBLE
                     genreTAB.visibility = View.VISIBLE
                 }
                 return true
@@ -103,8 +107,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupTabs(genres: List<GenresDetailsViewModel>) {
-        fragmentsVP.adapter = GenresTabsAdapter(supportFragmentManager, genres)
-        genreTAB.setupWithViewPager(fragmentsVP)
+        if (moviesVP.visibility == View.GONE && genres.isNotEmpty()) {
+            moviesVP.visibility = View.VISIBLE
+            genreTAB.visibility = View.VISIBLE
+            mainErrorLL.visibility = View.GONE
+        }
+
+        moviesVP.adapter = GenresTabsAdapter(supportFragmentManager, genres)
+        genreTAB.setupWithViewPager(moviesVP)
     }
 
     fun onSearchResult(newText: String) {
@@ -121,6 +131,7 @@ class MainActivity : AppCompatActivity() {
                 call: Call<MovieResultViewModel>,
                 response: Response<MovieResultViewModel>
             ) {
+                mainErrorLL.visibility = View.GONE
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
@@ -133,14 +144,31 @@ class MainActivity : AppCompatActivity() {
 
     fun onSearchError(errorMessage: String) {
         Log.e("onSearchError: ", errorMessage)
+
+        if (moviesVP.visibility == View.VISIBLE) {
+            moviesVP.visibility = View.GONE
+            genreTAB.visibility = View.GONE
+            searchLL.visibility = View.GONE
+        }
+
+        mainErrorLL.visibility = View.VISIBLE
+        messageTV.text = errorMessage
     }
 
     fun onSearchStart() {
         loadingPB.visibility = View.VISIBLE
     }
 
+    private fun reloadGenres() {
+        callGenres()
+    }
+
     private fun setupRecycle(movies: List<MovieViewModel>) {
-        searchRV?.layoutManager = GridLayoutManager(this, 2)
-        searchRV?.adapter = MovieAdapter(movies, this)
+        if (movies.isNotEmpty()) {
+            searchRV?.layoutManager = GridLayoutManager(this, 2)
+            searchRV?.adapter = MovieAdapter(movies, this)
+        } else {
+            onSearchError(getString(R.string.notFound))
+        }
     }
 }

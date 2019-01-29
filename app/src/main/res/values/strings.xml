@@ -2,5 +2,9 @@
     <string name="app_name">Movies</string>
     <string name="description">Descrição</string>
     <string name="searchMovie">Nome do filme</string>
+    <string name="reload">Buscar novamente</string>
+    <string name="notFound">Nenhum resultado encontrado</string>
+    <string name="callGenresError">Ops, ocorreu algum erro</string>
+    <string name="movieNotFound">Nenhum filme encontrado</string>
     <string name="descriptionUnavailable">Descrição indisponível</string>
 </resources>

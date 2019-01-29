@@ -17,10 +17,10 @@
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <android.support.v4.view.ViewPager
-            android:id="@+id/fragmentsVP"
+            android:id="@+id/moviesVP"
             android:layout_width="match_parent"
             android:layout_below="@+id/genreTAB"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     <LinearLayout
             android:id="@+id/searchLL"
@@ -46,7 +46,34 @@
                 android:id="@+id/loadingPB"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone" />
+                android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/mainErrorLL"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/messageTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+        <Button
+                android:id="@+id/mainReloadBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/reload"/>
+
     </LinearLayout>
 
 </RelativeLayout>

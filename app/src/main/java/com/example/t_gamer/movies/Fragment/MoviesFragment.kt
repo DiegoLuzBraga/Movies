@@ -57,7 +57,11 @@ class MoviesFragment : Fragment() {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
                     dbContext.insertMovie(movies.results)
-                    val movieGenre = movie_genres(movieId = movies.results[0].id, genreId = arguments!!.getInt("id"), id = arguments!!.getInt("id"))
+                    val movieGenre = movie_genres(
+                        movieId = movies.results[0].id,
+                        genreId = arguments!!.getInt("id"),
+                        id = arguments!!.getInt("id")
+                    )
                     dbContext.insertMovieGenres(movieGenre)
                     setupRecycle(movies.results)
                 }
@@ -66,7 +70,22 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupRecycle(movies: List<MovieViewModel>) {
-        itemsRV?.adapter = MovieAdapter(movies, context!!)
-        itemsRV?.layoutManager = GridLayoutManager(activity, 2)
+        if (movies.isNotEmpty()) {
+            if(movieLL.visibility == View.GONE) {
+                movieLL.visibility = View.GONE
+            }
+            itemsRV?.adapter = MovieAdapter(movies, context!!)
+            itemsRV?.layoutManager = GridLayoutManager(activity, 2)
+        } else {
+            onError(getString(R.string.movieNotFound))
+        }
+    }
+
+    private fun onError(message: String) {
+        if(movieLL.visibility == View.VISIBLE) {
+            movieLL.visibility = View.GONE
+        }
+        errorLL.visibility = View.VISIBLE
+        errorTXT.text = message
     }
 }
