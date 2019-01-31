@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(moviesTB)
 
         callGenres()
 
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                mainErrorLL.visibility = View.GONE
                 if (!newText.isNullOrEmpty() && newText!!.length > 2) {
 
                     if (moviesVP.visibility == View.VISIBLE) {
@@ -113,7 +115,10 @@ class MainActivity : AppCompatActivity() {
             mainErrorLL.visibility = View.GONE
         }
 
-        moviesVP.adapter = GenresTabsAdapter(supportFragmentManager, genres)
+        moviesVP.apply {
+            adapter = GenresTabsAdapter(supportFragmentManager, genres)
+            offscreenPageLimit = 19
+        }
         genreTAB.setupWithViewPager(moviesVP)
     }
 
@@ -135,7 +140,6 @@ class MainActivity : AppCompatActivity() {
                 response.body()?.let {
                     val movies: MovieResultViewModel = it
                     setupRecycle(movies.results)
-                    loadingPB.visibility = View.GONE
                 }
             }
 
@@ -150,7 +154,7 @@ class MainActivity : AppCompatActivity() {
             genreTAB.visibility = View.GONE
             searchLL.visibility = View.GONE
         }
-
+        loadingPB.visibility = View.GONE
         mainErrorLL.visibility = View.VISIBLE
         messageTV.text = errorMessage
     }
@@ -165,9 +169,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecycle(movies: List<MovieViewModel>) {
         if (movies.isNotEmpty()) {
+            mainErrorLL.visibility = View.GONE
             searchRV?.layoutManager = GridLayoutManager(this, 2)
             searchRV?.adapter = MovieAdapter(movies, this)
+            loadingPB.visibility = View.GONE
         } else {
+            searchRV.visibility = View.GONE
             onSearchError(getString(R.string.notFound))
         }
     }
