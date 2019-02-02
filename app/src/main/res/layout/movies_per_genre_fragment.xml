@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        style="@style/Theme.AppCompat.Light.DarkActionBar"
-        android:background="@color/colorGray"
-        tools:context=".MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.AppCompat.Light.DarkActionBar"
+    android:background="@color/colorWhite"
+    tools:context=".MainActivity">
 
-    <LinearLayout android:id="@+id/movieLL"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/movieLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/itemsRV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            android:id="@+id/itemsRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
 
     <LinearLayout
-            android:id="@+id/errorLL"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone">
+        android:id="@+id/errorLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_gravity="center"
-                android:id="@+id/errorTXT"/>
+            android:id="@+id/errorTXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16sp" />
 
         <Button
-                android:id="@+id/reloadBTN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/reload"/>
+            android:id="@+id/reloadBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/reload" />
 
     </LinearLayout>
 

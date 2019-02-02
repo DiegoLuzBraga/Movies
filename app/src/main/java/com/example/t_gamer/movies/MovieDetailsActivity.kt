@@ -13,9 +13,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_details)
         val overview: String = intent.getStringExtra("overview")
         val image: String = intent.getStringExtra("image")
+
         supportActionBar?.title = intent.getStringExtra("title")
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         if (overview.isNotEmpty()) {
             overviewTXT.text = overview
         } else {

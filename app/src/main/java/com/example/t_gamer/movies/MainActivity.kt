@@ -30,10 +30,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setSupportActionBar(moviesTB)
 
-        callGenres()
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        appNameTV.text = getString(R.string.app_name)
 
+        callGenres()
         mainReloadBTN.setOnClickListener {
             reloadGenres()
         }
@@ -58,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e("onFailure error", t.message)
                     setupTabs(localData.getGenres())
                     onSearchError(getString(R.string.callGenresError))
+                    mainReloadBTN.visibility = View.VISIBLE
                     loadingPB.visibility = View.GONE
                 }
             }
@@ -127,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         call.getMovieByTitle(newText).enqueue(object : Callback, retrofit2.Callback<MovieResultViewModel> {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) {
+                    mainReloadBTN.visibility = View.VISIBLE
                     onSearchError("SearchView - onFailure error: " + t.message)
                     loadingPB.visibility = View.GONE
                 }
@@ -174,6 +179,7 @@ class MainActivity : AppCompatActivity() {
             searchRV?.adapter = MovieAdapter(movies, this)
             loadingPB.visibility = View.GONE
         } else {
+            mainReloadBTN.visibility = View.GONE
             searchRV.visibility = View.GONE
             onSearchError(getString(R.string.notFound))
         }

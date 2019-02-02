@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".MovieDetailsActivity">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    tools:context=".MovieDetailsActivity">
+
     <ScrollView style="@style/MovieDetailsScrollView">
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical">
-            <ImageView android:id="@+id/detailsIMG"
-                       style="@style/DetailsIMG"
-                       android:elevation="8dp"/>
-            <TextView style="@style/DescriptionTXT"
-                      android:text="@string/description"
-                      android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/detailsIMG"
+                style="@style/DetailsIMG"
+                android:elevation="8dp" />
+
             <TextView
-                    style="@style/overviewTXT"
-                    android:id="@+id/overviewTXT"/>
+                style="@style/DescriptionTXT"
+                android:text="@string/description"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/overviewTXT"
+                style="@style/overviewTXT"
+                android:textColor="@color/colorBlack87"/>
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

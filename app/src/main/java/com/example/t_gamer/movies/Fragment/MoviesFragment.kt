@@ -71,7 +71,7 @@ class MoviesFragment : Fragment() {
 
     private fun setupRecycle(movies: List<MovieViewModel>) {
         if (movies.isNotEmpty()) {
-            if(movieLL.visibility == View.GONE) {
+            if (movieLL.visibility == View.GONE) {
                 movieLL.visibility = View.GONE
             }
             itemsRV?.adapter = MovieAdapter(movies, context!!)
@@ -82,7 +82,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun onError(message: String) {
-        if(movieLL.visibility == View.VISIBLE) {
+        if (movieLL.visibility == View.VISIBLE) {
             movieLL.visibility = View.GONE
         }
         errorLL.visibility = View.VISIBLE

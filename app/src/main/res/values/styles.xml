@@ -25,12 +25,8 @@
         <item name="android:layout_height">300dp</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:adjustViewBounds">true</item>
-        <!--<item name="android:paddingTop">12dp</item>-->
-        <!--<item name="android:paddingBottom">0dp</item>-->
-        <!--<item name="android:paddingLeft">12dp</item>-->
-        <!--<item name="android:paddingRight">12dp</item>-->
     </style>
-    
+
     <style name="TitleTXT">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
