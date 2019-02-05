@@ -46,4 +46,11 @@ interface DAO {
 
     @Query("SELECT * FROM Movies")
     fun getAllMovies(): List<MovieViewModel>
+
+    @Query("""
+            SELECT *
+            FROM Movies
+            WHERE isFavorite = 1
+    """)
+    fun getAllFavoriteMovies(): List<MovieViewModel>
 }

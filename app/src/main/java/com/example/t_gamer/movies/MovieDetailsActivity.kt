@@ -11,10 +11,15 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
+
+        setSupportActionBar(moviesDetailsTB)
         val overview: String = intent.getStringExtra("overview")
         val image: String = intent.getStringExtra("image")
+        val isFavorite: Int = intent.getIntExtra("isFavorite", 0)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        supportActionBar?.title = intent.getStringExtra("title")
+        moviesDetailsTV.text = intent.getStringExtra("title")
+
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -24,10 +29,16 @@ class MovieDetailsActivity : AppCompatActivity() {
             overviewTXT.text = getString(R.string.descriptionUnavailable)
         }
         Picasso.get().load(image).into(detailsIMG)
+
+        if(isFavorite == 0) {
+            favoriteDetailsIMG.setImageResource(R.drawable.ic_star_border_white_36dp)
+        } else {
+            favoriteDetailsIMG.setImageResource(R.drawable.ic_star_white_36dp)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == android.R.id.home){
+        if (item?.itemId == android.R.id.home) {
             onBackPressed()
             return true
         }

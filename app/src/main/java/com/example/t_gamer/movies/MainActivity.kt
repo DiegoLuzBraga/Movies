@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.SearchView
 import android.util.Log
@@ -18,6 +19,7 @@ import com.example.t_gamer.movies.ViewModel.GenresViewModel
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.movie_card.*
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
 import retrofit2.Call
 import retrofit2.Response
@@ -123,6 +125,8 @@ class MainActivity : AppCompatActivity() {
             adapter = GenresTabsAdapter(supportFragmentManager, genres)
             offscreenPageLimit = 19
         }
+//        genreTAB!!.addTab(genreTAB.newTab())
+//        genreTAB.getTabAt(1)?.setIcon(R.drawable.ic_star_white_36dp)
         genreTAB.setupWithViewPager(moviesVP)
     }
 

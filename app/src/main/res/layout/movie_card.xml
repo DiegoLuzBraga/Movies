@@ -9,20 +9,31 @@
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/posterIMG"
+            android:id="@+id/favoriteIMG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:elevation="8dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_star_border_white_36dp" />
 
+        <ImageView
+            android:id="@+id/posterIMG"
             style="@style/PosterIMG" />
 
         <TextView
             android:id="@+id/titleTXT"
             style="@style/TitleTXT"
+            android:layout_below="@+id/posterIMG"
             android:textAlignment="center" />
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

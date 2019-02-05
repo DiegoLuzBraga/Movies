@@ -2,8 +2,8 @@ package com.example.t_gamer.movies.ViewModel
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
+import com.google.gson.annotations.Expose
 
 @Entity(tableName = "Movies")
 data class MovieViewModel(
@@ -21,6 +21,9 @@ data class MovieViewModel(
     var overview: String,
 
     @ColumnInfo(name = "poster_path")
-    var poster_path: String?
+    var poster_path: String?,
+
+    @Expose()
+    var isFavorite: Int = 0
 
 )
