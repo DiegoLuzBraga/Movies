@@ -125,9 +125,9 @@ class MainActivity : AppCompatActivity() {
             adapter = GenresTabsAdapter(supportFragmentManager, genres)
             offscreenPageLimit = 19
         }
-//        genreTAB!!.addTab(genreTAB.newTab())
-//        genreTAB.getTabAt(1)?.setIcon(R.drawable.ic_star_white_36dp)
         genreTAB.setupWithViewPager(moviesVP)
+        genreTAB!!.addTab(genreTAB.newTab())
+        genreTAB.getTabAt(1)?.setIcon(R.drawable.ic_star_white_36dp)
     }
 
     fun onSearchResult(newText: String) {
