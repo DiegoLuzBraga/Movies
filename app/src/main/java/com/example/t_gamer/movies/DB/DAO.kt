@@ -1,9 +1,7 @@
 package com.example.t_gamer.movies.DB
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
+import com.example.t_gamer.movies.ViewModel.FavoriteMoviesViewModel
 import com.example.t_gamer.movies.ViewModel.GenresDetailsViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import com.example.t_gamer.movies.ViewModel.movie_genres
@@ -32,25 +30,33 @@ interface DAO {
     @Query("Select * from Genres")
     fun getGenres(): List<GenresDetailsViewModel>
 
-    @Query(
-        """
-        SELECT *
-        FROM Movies
-        INNER JOIN movie_genres ON movie_genres.genreId = (Movies.genre_ids)
-        WHERE :genre_id IN (genre_ids)"""
-    )
-    fun getMoviesByGenres(genre_id: List<Int>): List<MovieViewModel>
+//    @Query(
+//        """
+//        SELECT *
+//        FROM movies
+//        INNER JOIN movie_genres ON movie_genres.genreId = (movies.genre_ids)
+//        WHERE :genre_id IN (genre_ids)"""
+//    )
+//    fun getMoviesByGenres(genre_id: List<Int>): List<MovieViewModel>
 
     @Query("SELECT * FROM movie_genres")
     fun getAll(): List<movie_genres>
 
-    @Query("SELECT * FROM Movies")
+    @Query("SELECT movie_id, title, overview, poster_path FROM movies")
     fun getAllMovies(): List<MovieViewModel>
 
     @Query("""
-            SELECT *
-            FROM Movies
-            WHERE isFavorite = 1
+            SELECT movie_id, title, overview, poster_path
+            FROM favorite
     """)
-    fun getAllFavoriteMovies(): List<MovieViewModel>
+    fun getAllFavoriteMovies(): List<FavoriteMoviesViewModel>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFavorite(favorite: FavoriteMoviesViewModel)
+
+    @Query("""
+        DELETE FROM favorite
+        WHERE favorite.movie_id = (:id)
+    """)
+    fun deleteFavoritedMovie(id: Int)
 }

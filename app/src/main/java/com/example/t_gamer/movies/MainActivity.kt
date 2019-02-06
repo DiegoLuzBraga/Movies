@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     private val call = RetrofitConfig().tmdbAPI()
 
+    internal lateinit var adapter: GenresTabsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -121,13 +123,15 @@ class MainActivity : AppCompatActivity() {
             mainErrorLL.visibility = View.GONE
         }
 
+        adapter = GenresTabsAdapter(supportFragmentManager, genres)
+
         moviesVP.apply {
-            adapter = GenresTabsAdapter(supportFragmentManager, genres)
+            adapter = this@MainActivity.adapter
             offscreenPageLimit = 19
         }
         genreTAB.setupWithViewPager(moviesVP)
         genreTAB!!.addTab(genreTAB.newTab())
-        genreTAB.getTabAt(1)?.setIcon(R.drawable.ic_star_white_36dp)
+        genreTAB.getTabAt(19)?.setIcon(R.drawable.ic_star_white_36dp)
     }
 
     fun onSearchResult(newText: String) {

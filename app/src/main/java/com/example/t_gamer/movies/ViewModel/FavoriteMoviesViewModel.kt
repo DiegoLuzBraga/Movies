@@ -4,9 +4,8 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "movies")
-data class MovieViewModel(
-
+@Entity(tableName = "favorite")
+data class FavoriteMoviesViewModel (
     @PrimaryKey
     @ColumnInfo(name = "movie_id")
     var id: Int,

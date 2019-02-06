@@ -49,7 +49,7 @@ class MoviesFragment : Fragment() {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
-                    setupRecycle(dbContext.getMoviesByGenres(listOf(arguments!!.getInt("id"))))
+                   // setupRecycle(dbContext.getMoviesByGenres(listOf(arguments!!.getInt("id"))))
                 }
             }
 
