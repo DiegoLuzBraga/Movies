@@ -55,15 +55,14 @@ class MoviesFragment : Fragment() {
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
-                    val movies: MovieResultViewModel = it
-                    dbContext.insertMovie(movies.results)
-                    val movieGenre = movie_genres(
-                        movieId = movies.results[0].id,
-                        genreId = arguments!!.getInt("id"),
-                        id = arguments!!.getInt("id")
-                    )
-                    dbContext.insertMovieGenres(movieGenre)
-                    setupRecycle(movies.results)
+                    if(arguments!!.getInt("id") == 10000){
+                        val favMovies = dbContext.getAllFavoriteMovies()
+                        setupRecycle(favMovies.map { MovieViewModel(it.id, it.title, it.overview, it.poster_path) })
+                    } else {
+                        val movies: MovieResultViewModel = it
+                        dbContext.insertMovie(movies.results)
+                        setupRecycle(movies.results)
+                    }
                 }
             }
         })

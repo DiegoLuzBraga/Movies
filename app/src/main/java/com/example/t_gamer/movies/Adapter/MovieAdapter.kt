@@ -30,9 +30,13 @@ class MovieAdapter(private val movie: List<MovieViewModel>, private val context:
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val favMovies = localData.getAllFavoriteMovies()
+        val isFavorite: Int
+
         if (favMovies.map { it.id }.contains(movie?.get(position).id)) {
+            isFavorite = 1
             holder.isFavorite?.setImageResource(R.drawable.ic_star_white_36dp)
         } else {
+            isFavorite = 0
             holder.isFavorite?.setImageResource(R.drawable.ic_star_border_white_36dp)
         }
 
@@ -43,9 +47,13 @@ class MovieAdapter(private val movie: List<MovieViewModel>, private val context:
 
         holder.movieCard?.setOnClickListener {
             val intent = Intent(it.context, MovieDetailsActivity::class.java)
+
+            intent.putExtra("id", movie?.get(position)?.id)
             intent.putExtra("title", movie?.get(position)?.title)
             intent.putExtra("image", "https://image.tmdb.org/t/p/w500" + (movie?.get(position)?.poster_path))
             intent.putExtra("overview", movie?.get(position)?.overview)
+            intent.putExtra("isFavorite", isFavorite)
+
             startActivity(it.context, intent, Bundle())
         }
 
@@ -55,13 +63,13 @@ class MovieAdapter(private val movie: List<MovieViewModel>, private val context:
                 localData.deleteFavoritedMovie(movie?.get(position).id)
                 holder.isFavorite?.setImageResource(R.drawable.ic_star_border_white_36dp)
             } else {
-                val mv = movie?.get(position)
+                val movieModel = movie?.get(position)
                 localData.insertFavorite(
                     FavoriteMoviesViewModel(
-                        id = mv.id,
-                        overview = mv.overview,
-                        poster_path = mv.poster_path,
-                        title = mv.title
+                        id = movieModel.id,
+                        overview = movieModel.overview,
+                        poster_path = movieModel.poster_path,
+                        title = movieModel.title
                     )
                 )
                 holder.isFavorite?.setImageResource(R.drawable.ic_star_white_36dp)
