@@ -123,14 +123,17 @@ class MainActivity : AppCompatActivity() {
             mainErrorLL.visibility = View.GONE
         }
 
-        adapter = GenresTabsAdapter(supportFragmentManager, genres)
+        val list = genres.toTypedArray().plus(GenresDetailsViewModel(
+            id = 10000,
+            name = ""
+        )).toList()
+        adapter = GenresTabsAdapter(supportFragmentManager, list)
 
         moviesVP.apply {
             adapter = this@MainActivity.adapter
             offscreenPageLimit = 19
         }
         genreTAB.setupWithViewPager(moviesVP)
-        genreTAB!!.addTab(genreTAB.newTab())
         genreTAB.getTabAt(19)?.setIcon(R.drawable.ic_star_white_36dp)
     }
 

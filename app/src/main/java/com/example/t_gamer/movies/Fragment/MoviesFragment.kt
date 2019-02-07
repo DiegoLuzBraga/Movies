@@ -22,10 +22,11 @@ import javax.security.auth.callback.Callback
 class MoviesFragment : Fragment() {
 
     companion object {
-        fun newInstance(id: Int): MoviesFragment {
+        fun newInstance(id: Int, position: Int): MoviesFragment {
             val movieFragment = MoviesFragment()
             val args = Bundle()
             args.putInt("id", id)
+            args.putInt("position", position)
             movieFragment.arguments = args
             return movieFragment
         }
@@ -73,7 +74,7 @@ class MoviesFragment : Fragment() {
             if (movieLL.visibility == View.GONE) {
                 movieLL.visibility = View.GONE
             }
-            itemsRV?.adapter = MovieAdapter(movies, context!!)
+            itemsRV?.adapter = MovieAdapter(movies, context!!, arguments!!.getInt("position"))
             itemsRV?.layoutManager = GridLayoutManager(activity, 2)
         } else {
             onError(getString(R.string.movieNotFound))

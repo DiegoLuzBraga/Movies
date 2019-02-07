@@ -12,29 +12,29 @@ class GenresTabsAdapter(val fragmentManager: FragmentManager, var genres: List<G
 
     private val moviesFragments: ArrayList<MoviesFragment> = arrayListOf()
 
-    val localData = AppDatabase.instance.moviesDAO()
-
     override fun getItem(position: Int): Fragment {
         if(position < 19) {
-            val movieFragment = MoviesFragment.newInstance(genres[position].id)
+            val movieFragment = MoviesFragment.newInstance(genres[position].id, position)
             moviesFragments.add(movieFragment)
             return movieFragment
         } else {
-            val movieFragment = MoviesFragment.newInstance(10000)
+            val movieFragment = MoviesFragment.newInstance(10000, position)
             moviesFragments.add(movieFragment)
             return movieFragment
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? = genres[position].name
+    override fun getPageTitle(position: Int): CharSequence? = if(position < genres.size) genres[position].name else null
 
     override fun getCount(): Int = genres.size
 
-    fun setFavorite(){
-        fragmentManager.fragments.forEach{
+    fun setFavorite(position: Int?){
+        fragmentManager.fragments.forEachIndexed { index, it ->
             fragmentManager.apply {
-                beginTransaction().detach(it).commitAllowingStateLoss()
-                beginTransaction().attach(it).commitAllowingStateLoss()
+                if (position != null && position != index) {
+                    beginTransaction().detach(it).commitAllowingStateLoss()
+                    beginTransaction().attach(it).commitAllowingStateLoss()
+                }
             }
         }
     }

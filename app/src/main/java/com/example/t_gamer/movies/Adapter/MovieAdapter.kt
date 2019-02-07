@@ -16,7 +16,7 @@ import com.example.t_gamer.movies.ViewModel.FavoriteMoviesViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import com.squareup.picasso.Picasso
 
-class MovieAdapter(private val movie: List<MovieViewModel>, private val context: Context) :
+class MovieAdapter(private val movie: List<MovieViewModel>,private val context: Context, private val tabPosition: Int? = null) :
     RecyclerView.Adapter<MovieHolder>() {
 
     val localData = AppDatabase.instance.moviesDAO()
@@ -74,7 +74,7 @@ class MovieAdapter(private val movie: List<MovieViewModel>, private val context:
                 )
                 holder.isFavorite?.setImageResource(R.drawable.ic_star_white_36dp)
             }
-            (context as MainActivity).adapter.setFavorite()
+            (context as MainActivity).adapter.setFavorite(tabPosition)
         }
     }
 
