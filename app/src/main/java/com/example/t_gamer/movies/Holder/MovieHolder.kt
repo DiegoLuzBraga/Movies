@@ -1,7 +1,7 @@
 package com.example.t_gamer.movies.Holder
-import android.support.v7.widget.CardView
+import androidx.appcompat.widget.CardView
 import android.widget.TextView
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout

@@ -3,10 +3,10 @@ package com.example.t_gamer.movies.Adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.RecyclerView
 import com.example.t_gamer.movies.DB.AppDatabase
 import com.example.t_gamer.movies.MovieDetailsActivity
 import com.example.t_gamer.movies.Holder.MovieHolder

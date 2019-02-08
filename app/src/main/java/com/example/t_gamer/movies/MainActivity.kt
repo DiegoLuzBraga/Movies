@@ -2,11 +2,11 @@ package com.example.t_gamer.movies
 
 import android.app.SearchManager
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.SearchView
+import androidx.appcompat.widget.GridLayoutManager
+import androidx.appcompat.widget.SearchView
 import android.util.Log
 import android.view.Menu
 import android.view.View

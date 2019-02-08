@@ -1,7 +1,7 @@
 package com.example.t_gamer.movies.DB
 
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.example.t_gamer.movies.ViewModel.GenresDetailsViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import com.google.gson.Gson
