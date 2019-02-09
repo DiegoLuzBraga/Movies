@@ -1,19 +1,18 @@
 package com.example.t_gamer.movies.Fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.t_gamer.movies.Adapter.MovieAdapter
 import com.example.t_gamer.movies.R
 import com.example.t_gamer.movies.API.RetrofitConfig
 import com.example.t_gamer.movies.DB.AppDatabase
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
-import com.example.t_gamer.movies.ViewModel.movie_genres
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
 import retrofit2.Call
 import retrofit2.Response

@@ -2,14 +2,13 @@ package com.example.t_gamer.movies
 
 import android.app.SearchManager
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.t_gamer.movies.API.RetrofitConfig
 import com.example.t_gamer.movies.Adapter.GenresTabsAdapter
 import com.example.t_gamer.movies.Adapter.MovieAdapter
@@ -19,6 +18,7 @@ import com.example.t_gamer.movies.ViewModel.GenresViewModel
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.movie_card.*
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
 import retrofit2.Call

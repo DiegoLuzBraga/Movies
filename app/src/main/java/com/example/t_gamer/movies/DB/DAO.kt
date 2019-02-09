@@ -1,6 +1,9 @@
 package com.example.t_gamer.movies.DB
 
-import android.arch.persistence.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.t_gamer.movies.ViewModel.FavoriteMoviesViewModel
 import com.example.t_gamer.movies.ViewModel.GenresDetailsViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
