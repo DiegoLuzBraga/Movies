@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.t_gamer.movies.Adapter.MovieAdapter
-import com.example.t_gamer.movies.R
 import com.example.t_gamer.movies.API.RetrofitConfig
 import com.example.t_gamer.movies.DB.AppDatabase
+import com.example.t_gamer.movies.R
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
@@ -57,7 +59,9 @@ class MoviesFragment : Fragment() {
                 response.body()?.let {
                     if(arguments!!.getInt("id") == 10000){
                         val favMovies = dbContext.getAllFavoriteMovies()
-                        setupRecycle(favMovies.map { MovieViewModel(it.id, it.title, it.overview, it.poster_path) })
+                        val list = favMovies.map { MovieViewModel(it.id, it.title, it.overview, it.poster_path) }
+                        val formatedList: PagedList<MovieViewModel> = list. { PagedList(it.copy()) }
+                        setupRecycle()
                     } else {
                         val movies: MovieResultViewModel = it
                         dbContext.insertMovie(movies.results)
@@ -68,8 +72,8 @@ class MoviesFragment : Fragment() {
         })
     }
 
-    private fun setupRecycle(movies: List<MovieViewModel>) {
-        if (movies.isNotEmpty()) {
+    private fun setupRecycle(movies: LiveData<PagedList<MovieViewModel>>) {
+        if (arrayOf(movies).isNotEmpty()) {
             if (movieLL.visibility == View.GONE) {
                 movieLL.visibility = View.GONE
             }

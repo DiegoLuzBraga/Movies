@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.example.t_gamer.movies.DB.AppDatabase
 import com.example.t_gamer.movies.MovieDetailsActivity
@@ -16,7 +18,7 @@ import com.example.t_gamer.movies.ViewModel.FavoriteMoviesViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import com.squareup.picasso.Picasso
 
-class MovieAdapter(private val movie: List<MovieViewModel>,private val context: Context, private val tabPosition: Int? = null) :
+class MovieAdapter(private val movie: LiveData<PagedList<MovieViewModel>>, private val context: Context, private val tabPosition: Int? = null) :
     RecyclerView.Adapter<MovieHolder>() {
 
     val localData = AppDatabase.instance.moviesDAO()
@@ -32,7 +34,7 @@ class MovieAdapter(private val movie: List<MovieViewModel>,private val context: 
         val favMovies = localData.getAllFavoriteMovies()
         val isFavorite: Int
 
-        if (favMovies.map { it.id }.contains(movie?.get(position).id)) {
+        if (favMovies.map { it.id }.contains(movie.value!![position]!!.id)) {
             isFavorite = 1
             holder.isFavorite?.setImageResource(R.drawable.ic_star_white_36dp)
         } else {
@@ -40,18 +42,18 @@ class MovieAdapter(private val movie: List<MovieViewModel>,private val context: 
             holder.isFavorite?.setImageResource(R.drawable.ic_star_border_white_36dp)
         }
 
-        holder.title?.text = movie?.get(position)?.title
+        holder.title?.text = movie.value!![position]!!.title
 
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + (movie?.get(position)?.poster_path))
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + (movie.value!![position]!!.poster_path))
             .into(holder.movieView)
 
         holder.movieCard?.setOnClickListener {
             val intent = Intent(it.context, MovieDetailsActivity::class.java)
 
-            intent.putExtra("id", movie?.get(position)?.id)
-            intent.putExtra("title", movie?.get(position)?.title)
-            intent.putExtra("image", "https://image.tmdb.org/t/p/w500" + (movie?.get(position)?.poster_path))
-            intent.putExtra("overview", movie?.get(position)?.overview)
+            intent.putExtra("id", movie.value!![position]!!.id)
+            intent.putExtra("title", movie.value!![position]!!.title)
+            intent.putExtra("image", "https://image.tmdb.org/t/p/w500" + (movie.value!![position]!!.poster_path))
+            intent.putExtra("overview", movie.value!![position]!!.overview)
             intent.putExtra("isFavorite", isFavorite)
 
             startActivity(it.context, intent, Bundle())
@@ -59,11 +61,11 @@ class MovieAdapter(private val movie: List<MovieViewModel>,private val context: 
 
         holder.isFavorite?.setOnClickListener {
             val favMovies = localData.getAllFavoriteMovies()
-            if (favMovies.map { it.id }.contains(movie?.get(position).id)) {
-                localData.deleteFavoritedMovie(movie?.get(position).id)
+            if (favMovies.map { it.id }.contains(movie.value!![position]!!.id)) {
+                localData.deleteFavoritedMovie(movie.value!![position]!!.id)
                 holder.isFavorite?.setImageResource(R.drawable.ic_star_border_white_36dp)
             } else {
-                val movieModel = movie?.get(position)
+                val movieModel = movie.value!![position]!!
                 localData.insertFavorite(
                     FavoriteMoviesViewModel(
                         id = movieModel.id,
@@ -79,7 +81,7 @@ class MovieAdapter(private val movie: List<MovieViewModel>,private val context: 
     }
 
     override fun getItemCount(): Int {
-        return movie.size
+        return arrayOf(movie).size
     }
 
 }

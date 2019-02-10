@@ -8,6 +8,8 @@ import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.t_gamer.movies.API.RetrofitConfig
 import com.example.t_gamer.movies.Adapter.GenresTabsAdapter
@@ -18,8 +20,6 @@ import com.example.t_gamer.movies.ViewModel.GenresViewModel
 import com.example.t_gamer.movies.ViewModel.MovieResultViewModel
 import com.example.t_gamer.movies.ViewModel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import androidx.appcompat.widget.Toolbar
-import kotlinx.android.synthetic.main.movie_card.*
 import kotlinx.android.synthetic.main.movies_per_genre_fragment.*
 import retrofit2.Call
 import retrofit2.Response
@@ -183,8 +183,8 @@ class MainActivity : AppCompatActivity() {
         callGenres()
     }
 
-    private fun setupRecycle(movies: List<MovieViewModel>) {
-        if (movies.isNotEmpty()) {
+    private fun setupRecycle(movies: LiveData<PagedList<MovieViewModel>>) {
+        if (arrayOf(movies).isNotEmpty()) {
             mainErrorLL.visibility = View.GONE
             searchRV?.layoutManager = GridLayoutManager(this, 2)
             searchRV?.adapter = MovieAdapter(movies, this)

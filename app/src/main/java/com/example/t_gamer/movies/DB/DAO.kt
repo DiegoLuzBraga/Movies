@@ -1,5 +1,7 @@
 package com.example.t_gamer.movies.DB
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -28,7 +30,7 @@ interface DAO {
     fun updateMovieGenres(movieId: Int, genreId: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movies: List<MovieViewModel>)
+    fun insertMovie(movies: LiveData<PagedList<MovieViewModel>>)
 
     @Query("Select * from Genres")
     fun getGenres(): List<GenresDetailsViewModel>

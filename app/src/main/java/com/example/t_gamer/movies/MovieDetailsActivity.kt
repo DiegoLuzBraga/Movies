@@ -1,8 +1,8 @@
 package com.example.t_gamer.movies
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.example.t_gamer.movies.DB.AppDatabase
 import com.example.t_gamer.movies.ViewModel.FavoriteMoviesViewModel
 import com.squareup.picasso.Picasso
