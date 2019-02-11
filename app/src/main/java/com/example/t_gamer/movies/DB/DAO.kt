@@ -30,7 +30,7 @@ interface DAO {
     fun updateMovieGenres(movieId: Int, genreId: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movies: LiveData<PagedList<MovieViewModel>>)
+    fun insertMovie(movies: PagedList<MovieViewModel>)
 
     @Query("Select * from Genres")
     fun getGenres(): List<GenresDetailsViewModel>

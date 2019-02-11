@@ -51,20 +51,20 @@ class MoviesFragment : Fragment() {
             override fun onFailure(call: Call<MovieResultViewModel>, t: Throwable) {
                 if (!t.message.isNullOrEmpty()) {
                     Log.e("onFailure error", t.message)
-                   // setupRecycle(dbContext.getMoviesByGenres(listOf(arguments!!.getInt("id"))))
+                    // setupRecycle(dbContext.getMoviesByGenres(listOf(arguments!!.getInt("id"))))
                 }
             }
 
             override fun onResponse(call: Call<MovieResultViewModel>, response: Response<MovieResultViewModel>) {
                 response.body()?.let {
-                    if(arguments!!.getInt("id") == 10000){
+                    if (arguments!!.getInt("id") == 10000) {
                         val favMovies = dbContext.getAllFavoriteMovies()
                         val list = favMovies.map { MovieViewModel(it.id, it.title, it.overview, it.poster_path) }
-                        val formatedList: PagedList<MovieViewModel> = list. { PagedList(it.copy()) }
-                        setupRecycle()
+
+                        setupRecycle(list as LiveData<PagedList<MovieViewModel>>)
                     } else {
                         val movies: MovieResultViewModel = it
-                        dbContext.insertMovie(movies.results)
+                        dbContext.insertMovie(movies.results.value!!)
                         setupRecycle(movies.results)
                     }
                 }
