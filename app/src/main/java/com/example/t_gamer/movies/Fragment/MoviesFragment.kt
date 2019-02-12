@@ -58,7 +58,15 @@ class MoviesFragment : Fragment() {
                 response.body()?.let {
                     if(arguments!!.getInt("id") == 10000){
                         val favMovies = dbContext.getAllFavoriteMovies()
-                        setupRecycle(favMovies.map { MovieViewModel(it.id, it.title, it.overview, it.poster_path) })
+                        if(favMovies.isNotEmpty()){
+                            errorTXT.visibility = View.GONE
+                            errorLL.visibility = View.GONE
+                            setupRecycle(favMovies.map { MovieViewModel(it.id, it.title, it.overview, it.poster_path) })
+                        } else {
+                            errorTXT.text = getString(R.string.noneFavoriteMoviesFound)
+                            errorLL.visibility = View.VISIBLE
+                            reloadBTN.visibility = View.GONE
+                        }
                     } else {
                         val movies: MovieResultViewModel = it
                         dbContext.insertMovie(movies.results)

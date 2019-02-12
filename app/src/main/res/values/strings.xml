@@ -7,4 +7,5 @@
     <string name="callGenresError">Ops, ocorreu algum erro</string>
     <string name="movieNotFound">Nenhum filme encontrado</string>
     <string name="descriptionUnavailable">Descrição indisponível</string>
+    <string name="noneFavoriteMoviesFound">Ops, parece que você não tem filmes favoritos!</string>
 </resources>
